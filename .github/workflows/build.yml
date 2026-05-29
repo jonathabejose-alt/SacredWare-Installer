@@ -41,7 +41,7 @@ jobs:
         tag_name: ${{ github.event.inputs.version }}
         name: "SacredWare Installer ${{ github.event.inputs.version }}"
         body: |
-           SacredWare Automated Installer
+          SacredWare Automated Installer
           
           - Auto-updates itself
           - Downloads latest SacredWare.exe
