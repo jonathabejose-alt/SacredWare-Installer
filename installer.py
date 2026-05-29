@@ -312,7 +312,6 @@ class InstallerWindow(QMainWindow):
         self.setCentralWidget(outer)
         self._drag = None
 
-        # Iniciar checkeo
         self._check_version()
 
     def mousePressEvent(self, e):
@@ -340,7 +339,6 @@ class InstallerWindow(QMainWindow):
             if not self._download_url:
                 raise Exception("No .exe found in release")
 
-            # Ver si ya está instalado
             version_file = self._exe_dir / "version.txt"
             current_version = ""
             if version_file.exists():
@@ -358,7 +356,6 @@ class InstallerWindow(QMainWindow):
 
         except Exception as e:
             self.status.setText(f"Error: {e}")
-            # Si falla el check pero el exe existe, dar opcion de launch
             if self._exe_path.exists():
                 self.btn.setText("Launch anyway")
                 self.btn.setEnabled(True)
@@ -386,13 +383,11 @@ class InstallerWindow(QMainWindow):
             self.close()
             return
 
-        # Guardar version
         try:
             (self._exe_dir / "version.txt").write_text(self._version or "")
         except:
             pass
 
-        # Shortcut
         if self.chk.isChecked():
             try:
                 desktop = Path.home() / "Desktop" / "SacredWare.lnk"
