@@ -27,7 +27,7 @@ jobs:
 
     - name: Build Installer EXE
       run: |
-        pyinstaller --clean --onefile --noconsole --uac-admin --icon="installer.ico" --name="SacredWare_Installer" installer.py
+        pyinstaller --clean --onefile --noconsole --uac-admin --icon="cr.ico" --name="SacredWare_Installer" installer.py
 
     - name: Create Release
       run: |
