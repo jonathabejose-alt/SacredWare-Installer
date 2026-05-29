@@ -27,7 +27,7 @@ jobs:
 
     - name: Build Installer EXE
       run: |
-        pyinstaller --clean --onefile --noconsole --uac-admin --icon="installer.ico" --name="SacredWare_Installer" main.py
+        pyinstaller --clean --onefile --noconsole --uac-admin --icon="installer.ico" --name="SacredWare_Installer" installer.py
 
     - name: Upload to Release
       uses: softprops/action-gh-release@v2
