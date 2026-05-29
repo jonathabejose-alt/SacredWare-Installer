@@ -1,9 +1,12 @@
 name: Build Installer EXE
 
 on:
-  push:
-    tags:
-      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (ej: v1.0.1)'
+        required: true
+        default: 'v1.0.1'
 
 jobs:
   build:
@@ -29,9 +32,11 @@ jobs:
       run: |
         pyinstaller --clean --onefile --windowed --name "SacredWare_Installer" installer.py
 
-    - name: Upload to Release
+    - name: Create Release and Upload
       uses: softprops/action-gh-release@v2
       with:
         files: dist/SacredWare_Installer.exe
+        tag_name: ${{ github.event.inputs.version }}
+        name: "SacredWare Installer ${{ github.event.inputs.version }}"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
