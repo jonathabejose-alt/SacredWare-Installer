@@ -1,12 +1,9 @@
-name: Build Installer EXE
+name: Automated Installer Compiler
 
 on:
-  workflow_dispatch:
-    inputs:
-      version:
-        description: 'Version tag (ej: v1.0.1)'
-        required: true
-        default: 'v1.0.1'
+  push:
+    tags:
+      - 'v*'
 
 jobs:
   build:
@@ -26,17 +23,20 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install PyQt6 pyinstaller
+        pip install PyInstaller
 
-    - name: Build EXE
+    - name: Build Installer EXE
       run: |
-        pyinstaller --clean --onefile --windowed --name "SacredWare_Installer" installer.py
+        pyinstaller --clean --onefile --noconsole --uac-admin --icon="installer.ico" --name="SacredWare_Installer" installer.py
 
-    - name: Create Release and Upload
-      uses: softprops/action-gh-release@v2
-      with:
-        files: dist/SacredWare_Installer.exe
-        tag_name: ${{ github.event.inputs.version }}
-        name: "SacredWare Installer ${{ github.event.inputs.version }}"
+    - name: Create Release
+      run: |
+        gh release create ${{ github.ref_name }} --title "${{ github.ref_name }}" --notes "Installer Release ${{ github.ref_name }}" --repo ${{ github.repository }}
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Upload to Release
+      run: |
+        gh release upload ${{ github.ref_name }} dist/SacredWare_Installer.exe --clobber --repo ${{ github.repository }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
