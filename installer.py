@@ -52,7 +52,7 @@ sys.excepthook = visual_excepthook
 # -----------------------------
 
 APP_REPO_API = "https://api.github.com/repos/jonathabejose-alt/injector/releases/latest"
-INSTALLER_REPO_API = "https://api.github.com/repos/TU_USUARIO/SacredWare-Installer/releases/latest"
+INSTALLER_REPO_API = "https://api.github.com/repos/jonathabejose-alt/SacredWare-Installer/releases/latest"
 
 # -----------------------------
 # Styling
